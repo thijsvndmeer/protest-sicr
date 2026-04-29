@@ -90,7 +90,7 @@ export default function App() {
               <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
                 <XAxis dataKey="t" stroke="#888" tick={{fill: '#888'}} label={{ value: 'Days', position: 'insideBottom', offset: -10, fill: '#888' }} />
-                <YAxis stroke="#888" tick={{fill: '#888'}} label={{ value: 'Protesters (N)', angle: -90, position: 'insideLeft', fill: '#888' }} />
+                <YAxis scale="log" domain={[1, 'auto']} allowDataOverflow stroke="#888" tick={{fill: '#888'}} label={{ value: 'Protesters (N)', angle: -90, position: 'insideLeft', fill: '#888' }} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', border: '1px solid #334155', borderRadius: '8px', color: '#f1f5f9' }}
                   itemStyle={{ color: '#38bdf8' }}

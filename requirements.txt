@@ -3,4 +3,7 @@ scipy
 pandas
 matplotlib
 seaborn
-SALib
+tqdm
+requests
+lxml
+jupyter-book

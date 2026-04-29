@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 results/
+_build/
+jb_docs/_build/
 data/*.csv
 !data/france_2023_weekly.csv
 !data/iran_2022_weekly.csv

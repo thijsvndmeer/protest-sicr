@@ -74,7 +74,7 @@ def fit_model(country="france"):
     result = differential_evolution(
         loss, bounds, args=(t_obs, N_obs, S0, protest_days),
         seed=42, popsize=15, maxiter=50, # Reduced for speed in pipeline building
-        polish=True, workers=1, tol=1e-2,
+        polish=True, workers=-1, tol=1e-2,
     )
     print(f"Fit completed. Success: {result.success}, Loss: {result.fun}")
     

@@ -31,6 +31,11 @@ jobs:
       - name: Build the book (no execution)
         run: jupyter-book build .
 
+      - name: Verify build output
+        run: |
+          echo "Build output contents:"
+          ls -la _build/html/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -6,4 +6,4 @@ seaborn
 tqdm
 requests
 lxml
-jupyter-book
+jupyter-book>=0.15,<1

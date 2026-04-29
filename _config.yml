@@ -3,8 +3,7 @@ author: Thijs van der Meer
 logo: ""
 
 execute:
-  execute_notebooks: force
-  timeout: 600
+  execute_notebooks: "off"
 
 repository:
   url: https://github.com/thijsvndmeer/protest-sicr
@@ -18,3 +17,10 @@ html:
 sphinx:
   config:
     html_show_copyright: false
+    exclude_patterns:
+      - "README.md"
+      - "venv/*"
+      - "_build/*"
+      - "data/*"
+      - "results/*"
+      - ".github/*"

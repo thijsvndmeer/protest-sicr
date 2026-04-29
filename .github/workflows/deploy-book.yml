@@ -25,13 +25,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+      - name: Install jupyter-book
+        run: pip install jupyter-book
 
-      - name: Build the book
-        run: |
-          jupyter-book build .
+      - name: Build the book (no execution)
+        run: jupyter-book build .
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

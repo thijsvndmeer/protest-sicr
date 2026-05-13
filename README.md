@@ -39,6 +39,50 @@ jupyter notebook analysis.ipynb
 
 The notebook contains the full pipeline: ODE system, `differential_evolution` fitting, and comparative visualisations for both datasets. Fitted parameters are automatically cached to `results/fitted_params.json` so subsequent runs skip the expensive calibration step. Delete that file to re-fit from scratch.
 
+## Parameter Sets
+
+### Parameter set q(1)
+
+| Parameter | Value |
+| --- | --- |
+| β1 | 0.0103 × 10−9 |
+| β2 | 0.2393 × 10−6 |
+| χ | 0.0085 × 10−2 |
+| n | 1.5885 |
+| C0 | 22966 |
+| δ1 | 0.0783 |
+| δ2 | 0.5362 × 10−3 |
+| F1 | 246.56 × 10³ |
+| F2 | 5441.3 × 10⁶ |
+
+### Parameter set q(2)
+
+| Parameter | Value |
+| --- | --- |
+| β1 | 0.0194 × 10−9 |
+| β2 | 0.1045 × 10−6 |
+| χ | 0.0163 × 10−2 |
+| n | 1.4993 |
+| C0 | 27975 |
+| δ1 | 0.0684 |
+| δ2 | 0.2167 × 10−3 |
+| F1 | 250.66 × 10³ |
+| F2 | 4712.57 × 10⁶ |
+
+### Why these parameters are chosen
+
+| Parameter | Why it is chosen |
+| --- | --- |
+| β1 | Captures baseline mobilisation pressure at low protest intensity and is calibrated to keep early dynamics realistic. |
+| β2 | Controls nonlinear mobilisation growth from social contagion effects, so it is tuned to match observed escalation. |
+| χ | Represents the strength of repression in reducing active mobilisation, so it is chosen to reflect demobilisation pressure. |
+| n | Sets the nonlinearity of transmission/saturation dynamics and is selected for stable, identifiable fits. |
+| C0 | Sets the initial scale of committed participants and anchors the model to observed starting conditions. |
+| δ1 | Governs direct retirement/disengagement under pressure and is chosen to reproduce decline speed in participation. |
+| δ2 | Adds higher-order retirement effects at larger protest sizes to capture stronger late-stage demobilisation. |
+| F1 | Controls repression-response saturation in the first forcing term and is calibrated to match intervention sensitivity. |
+| F2 | Controls repression-response saturation in the second forcing term and is calibrated for high-intensity regime behavior. |
+
 ## GitHub Pages
 
 The Jupyter Book is automatically built and deployed on every push to `main` via GitHub Actions. To enable it, go to your repo **Settings → Pages** and set the source to **GitHub Actions**.

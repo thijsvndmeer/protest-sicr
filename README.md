@@ -71,17 +71,19 @@ The notebook contains the full pipeline: ODE system, `differential_evolution` fi
 
 ### Why these parameters are chosen
 
-| Parameter | Why it is chosen |
+| Parameter | Description / Physical Rationale |
 | --- | --- |
-| β1 | Captures baseline mobilisation pressure at low protest intensity and is calibrated to keep early dynamics realistic. |
-| β2 | Controls nonlinear mobilisation growth from social contagion effects, so it is tuned to match observed escalation. |
-| χ | Represents the strength of repression in reducing active mobilisation, so it is chosen to reflect demobilisation pressure. |
-| n | Sets the nonlinearity of transmission/saturation dynamics and is selected for stable, identifiable fits. |
-| C0 | Sets the initial scale of committed participants and anchors the model to observed starting conditions. |
-| δ1 | Governs direct retirement/disengagement under pressure and is chosen to reproduce decline speed in participation. |
-| δ2 | Adds higher-order retirement effects at larger protest sizes to capture stronger late-stage demobilisation. |
-| F1 | Controls repression-response saturation in the first forcing term and is calibrated to match intervention sensitivity. |
-| F2 | Controls repression-response saturation in the second forcing term and is calibrated for high-intensity regime behavior. |
+| $\beta_1$ | Transmission rate from Susceptible ($S$) to Informed ($I$) via contact with Informed individuals. Captures baseline mobilisation from active protesters. |
+| $\beta_2$ | Transmission rate from Susceptible ($S$) to Informed ($I$) via contact with Committed ($C$) individuals. Captures social contagion from fully committed participants. |
+| $\chi$ | Transition rate from Informed ($I$) to Committed ($C$) (representing protesters committing to the movement). |
+| $\delta_{11}$ | Baseline exit rate of Informed individuals to Retired ($R$). |
+| $\delta_{21}$ | Baseline exit rate of Committed individuals to Retired ($R$). |
+| $\gamma$ | Recovery rate from Retired ($R$) back to Susceptible ($S$), representing how quickly tired/arrested protesters re-enter the pool of potential participants. |
+| $C_0$ | Solidarity capacity threshold. When $I+C \gg C_0$, crowd solidarity reduces the disengagement/exit rate of Committed individuals. |
+| $n$ | Nonlinearity exponent governing the steepness of the crowd solidarity effect. |
+| $\epsilon_0$ | Recruitment enhancement factor on protest days (boosts transmission rates $\beta_1, \beta_2$). |
+| $\epsilon_{12}$ | Protest-day exit/repression enhancement factor for Informed individuals. |
+| $\epsilon_{22}$ | Protest-day exit/repression enhancement factor for Committed individuals. |
 
 ## GitHub Pages
 
@@ -89,4 +91,5 @@ The Jupyter Book is automatically built and deployed on every push to `main` via
 
 ## Assumptions & Limitations
 - **Data Proxy**: The Iran 2022 dataset provides the cumulative number of arrested individuals as opposed to crowd counts. We proxy the number of active protesters using the daily difference in arrests and an arbitrary scalar.
-- **Fixed Parameters**: To avoid identifiability issues on a short dataset, recovery rate `gamma` and the nonlinearity exponent `n` are fixed during fitting.
+- **Iran Data Zero-Arrest Artifact**: On days when no new arrests are added to the cumulative count (a flat trend), the daily difference is exactly `0`. When plotting on a log-scale, these zero-value days are capped at $1.0$ (via `np.maximum(1, N_ir)`), which creates the horizontal band of observed points visible at the bottom of the Iran chart.
+- **Fixed Parameters**: To avoid identifiability issues on a short dataset, the nonlinearity exponent $n$ (fixed at `4.0`) and the recovery rate $\gamma$ (fixed at `0.05`) are fixed during fitting.

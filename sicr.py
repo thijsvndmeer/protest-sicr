@@ -61,10 +61,10 @@ def loss(params, t_obs, N_obs, S0, protest_days):
     # bounds provides 9: b1, b2, chi, d11, d21, C0, eps0, eps12, eps22
     # Insert fixed parameters:
     if len(params) == 8:
-        full_params.insert(5, 0.010)   # fixed gamma
+        full_params.insert(5, 0.05)   # fixed gamma
         full_params.insert(7, 4.0)     # fixed n
     else:
-        full_params.insert(5, 0.010)   # fixed gamma
+        full_params.insert(5, 0.05)   # fixed gamma
         full_params.insert(7, 4.0)     # fixed n
     
     y0 = [S0, max(1, N_obs[0] * 0.1), max(1, N_obs[0] * 0.9), 0]

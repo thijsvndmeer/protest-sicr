@@ -30,23 +30,32 @@ def sicr_rhs(t, y, params, P_func):
     return [dS, dI, dC, dR]
 
 
-def simulate_sicr(y0, params, t_span, protest_days, t_eval=None):
+def simulate_sicr(y0, params, t_span, protest_days, t_eval=None, rtol=1e-6, atol=1e-8):
     P_func = make_P_func(protest_days)
     return solve_ivp(
         sicr_rhs, t_span, y0, args=(params, P_func),
-        method='LSODA', t_eval=t_eval, rtol=1e-6, atol=1e-8
+        method='LSODA', t_eval=t_eval, rtol=rtol, atol=atol
     )
 
 
 def loss(params, t_obs, N_obs, S0, protest_days):
-    """Loss function for differential_evolution — must be top-level for pickling."""
-    full_params = list(params)
-    full_params.insert(5, 0.010)   # fixed gamma
-    full_params.insert(7, 4.0)     # fixed n
+    """Loss function for differential_evolution — must be top-level for pickling.
+
+    Expects 9 params: log(b1), log(b2), log(chi), log(d11), log(d21),
+    log(C0), eps12, eps22, n.  First 6 are log-space; last 3 are linear.
+    """
+    log_b1, log_b2, log_chi, log_d11, log_d21, log_C0, eps12, eps22, n = params
+    full_params = [
+        np.exp(log_b1), np.exp(log_b2), np.exp(log_chi),
+        np.exp(log_d11), np.exp(log_d21),
+        0.010,            # fixed gamma
+        np.exp(log_C0), n, eps12, eps22,
+    ]
     y0 = [S0, max(1, N_obs[0] * 0.1), max(1, N_obs[0] * 0.9), 0]
     try:
         sol = simulate_sicr(y0, full_params, [0, t_obs[-1] + 10],
-                            protest_days=protest_days, t_eval=t_obs)
+                            protest_days=protest_days, t_eval=t_obs,
+                            rtol=1e-4, atol=1e-6)
     except Exception:
         return 1e9
     if not sol.success or len(sol.t) != len(t_obs):
